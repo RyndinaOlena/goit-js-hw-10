@@ -11,7 +11,7 @@ const catInfo = document.querySelector('.cat-info')
 selectEl.addEventListener('change', fetchBreeds)
 
 fetchBreeds().then((data) => {
-    const optionMurcup = data.map(({ id, name, url }) =>
+    const optionMurcup = data.map(({ id, name }) =>
         `<option value="${id}">${name}</option>`
     ).join('');
     selectEl.innerHTML = optionMurcup
@@ -21,12 +21,20 @@ fetchBreeds().then((data) => {
         // data: selectEl.getData(`img url="${url}"`)
     })
 
-    console.log(fetchCatByBreed(data.id))
+
 
 
 })
 
 
+
+fetchCatByBreed().then((data) => {
+    const createMurcup = data.map((el) => {
+        return `<li><img src=$"${el.url}" alt="${el.name}" width="${el.width}" height="${el.heght}"/><h2>${el.name}</h2><p>${el.description}</p><p>${el.temperament}</p>
+        </li>`
+    }).join('')
+    catInfo.insertAdjacentHTML('afterbegin', createMurcup)
+})
 
 
 
