@@ -7,8 +7,7 @@ const API_URL = 'https://api.thecatapi.com/v1/breeds'
 
 function fetchBreeds() {
     return axios.get(API_URL, API_KEY).then((responce) => {
-        responce.data
+        return responce.data
     })
 }
 
-console.log(fetchBreeds())
