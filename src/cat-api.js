@@ -1,4 +1,5 @@
 export { fetchBreeds }
+export { fetchCatByBreed }
 import axios from "axios";
 
 const API_KEY = axios.defaults.headers.common["x-api-key"] = "live_O4Nbn4iSQKDkMOFXZYeuCiyW4L0VJqoAZOulbPJHGGgpTLXIMLGudCOcOwO6HY2u";
@@ -11,3 +12,8 @@ function fetchBreeds() {
     })
 }
 
+function fetchCatByBreed(breedId) {
+    return axios.get(`${API_URL}?breed_ids=${breedId}`).then((resp) => {
+        return resp.data
+    })
+}
