@@ -3,40 +3,28 @@ import SlimSelect from 'slim-select'
 import 'slim-select/dist/slimselect.css'
 import { fetchBreeds } from './cat-api'
 const selectEl = document.querySelector('.breed-select')
+const catInfo = document.querySelector('.cat-info')
 
-
-selectEl.addEventListener('change', getMurcup)
-
+selectEl.addEventListener('change', fetchBreeds, choose)
 
 fetchBreeds().then((data) => {
-    getMurcup(data)
-
-})
-
-function getMurcup(data) {
-
-    // const takeCats = data.map(({ url, alt, name, descrition, temperament }) => {
-    //     `<li><img src="${url}" alt="${alt}"><h2>${name}</h2><p>${descrition}</p><h3>${temperament}</h3> </li>`
-    // })
-
-
-
     const optionMurcup = data.map(({ id, name }) =>
         `<option value="${id}">${name}</option>`
     ).join('');
-    selectEl.insertAdjacentHTML('afterbegin', optionMurcup)
+    selectEl.innerHTML = optionMurcup
 
     new SlimSelect({
         select: document.querySelector('.breed-select'),
-
     })
-    // const takeCats = data.map(({ url, alt, name, descrition, temperament }) => {
-    //     `<li><img src="${url}" alt="${alt}"><h2>${name}</h2><p>${descrition}</p><h3>${temperament}</h3> </li>`
-    // })
 
-    // selectEl.insertAdjacentHTML('afterbegin', takeCats)
-
+})
+function choose(e) {
+    const cat = e.target.elements.value
+    console.log(cat)
 }
+
+
+
 
 
 
