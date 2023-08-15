@@ -31,11 +31,11 @@ function getMurcup(data) {
 
     })
 
-    const takeCats = data.map(({ url, alt, name, descrition, temperament }) => {
-        `<li><img src="${url}" alt="${alt}"><h2>${name}</h2><p>${descrition}</p><h3>${temperament}</h3> </li>`
-    })
+    // const takeCats = data.map(({ url, alt, name, descrition, temperament }) => {
+    //     `<li><img src="${url}" alt="${alt}"><h2>${name}</h2><p>${descrition}</p><h3>${temperament}</h3> </li>`
+    // })
 
-    selectEl.insertAdjacentHTML('afterbegin', takeCats)
+    // selectEl.insertAdjacentHTML('afterbegin', takeCats)
 
 }
 
