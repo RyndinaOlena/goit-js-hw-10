@@ -7,11 +7,7 @@ const API_URL = 'https://api.thecatapi.com/v1/breeds'
 
 function fetchBreeds() {
     return axios.get(API_URL, API_KEY).then((responce) => {
-        console.log(responce)
-        if (responce.status !== 200) {
-            throw new Error(responce.statusText)
-        }
-        return responce.data
+        responce.data
     })
 }
 
