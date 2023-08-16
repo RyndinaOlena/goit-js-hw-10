@@ -13,7 +13,7 @@ function fetchBreeds() {
 }
 
 function fetchCatByBreed(breedId) {
-    return axios.get(`${API_URL}?breed_ids=${breedId}`).then((resp) => {
+    return axios.get(`${API_URL}?breed_id=${breedId}`).then((resp) => {
         return resp.data
     })
 }
