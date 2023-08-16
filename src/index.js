@@ -3,10 +3,15 @@ import SlimSelect from 'slim-select'
 import 'slim-select/dist/slimselect.css'
 import { fetchBreeds } from './cat-api'
 import { fetchCatByBreed } from './cat-api'
+import Notiflix, { notiflix } from 'notiflix'
 
 
 const selectEl = document.querySelector('.breed-select')
 const catInfo = document.querySelector('.cat-info')
+const loaderEl = document.querySelector('.loader')
+const errorEl = document.querySelector('.error')
+errorEl.innerHTML = ''
+loaderEl.innerHTML = ''
 
 selectEl.addEventListener('change', onSelect)
 
@@ -20,7 +25,7 @@ fetchBreeds().then((data) => {
         select: document.querySelector('.breed-select'),
     })
 
-})
+}).catch(error => Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!'))
 
 
 
@@ -28,13 +33,14 @@ fetchBreeds().then((data) => {
 
 function onSelect(e) {
     const cat = e.target.value
+
     fetchCatByBreed(e.target.value).then((data) => {
         const createMurcup = data.filter(el => el.id === cat).map((el) => {
-            return `<li><img src="${el.image.url}" alt="${el.name}" width="${el.width}" height="${el.heght}"/><h2>${el.name}</h2><p>${el.description}</p><p>${el.temperament}</p>
+            return `<li><img src="${el.image.url}" alt="${el.name}" width="${el.image.width}" height="${el.image.heght}"/><h2>${el.name}</h2><p>${el.description}</p><p>${el.temperament}</p>
         </li>`
         }).join('')
         catInfo.innerHTML = createMurcup
-    })
+    }).catch(error => Notiflix.Report.warning('Oops! Something went wrong! Try reloading the page!'))
 
 
 }
