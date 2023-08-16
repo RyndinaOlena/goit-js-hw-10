@@ -11,7 +11,9 @@ const catInfo = document.querySelector('.cat-info')
 const loaderEl = document.querySelector('.loader')
 const errorEl = document.querySelector('.error')
 errorEl.innerHTML = ''
-loaderEl.innerHTML = ''
+loaderEl.classList.add('loader')
+
+
 
 selectEl.addEventListener('change', onSelect)
 
@@ -24,8 +26,8 @@ fetchBreeds().then((data) => {
     new SlimSelect({
         select: document.querySelector('.breed-select'),
     })
-
-}).catch(error => Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!'))
+})
+    .catch(error => Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!'))
 
 
 
@@ -35,14 +37,14 @@ function onSelect(e) {
     const cat = e.target.value
 
     fetchCatByBreed(e.target.value).then((data) => {
+
         const createMurcup = data.filter(el => el.id === cat).map((el) => {
-            return `<li><img src="${el.image.url}" alt="${el.name}" width="${el.image.width}" height="${el.image.heght}"/><h2>${el.name}</h2><p>${el.description}</p><p>${el.temperament}</p>
-        </li>`
+            return `<img src="${el.image.url}" alt="${el.name}" width="${el.image.width}" height="${el.image.heght}"/><h2>${el.name}</h2><p>${el.description}</p><p>${el.temperament}</p>
+        `
         }).join('')
         catInfo.innerHTML = createMurcup
+        loaderEl.classList.remove('loader')
     }).catch(error => Notiflix.Report.warning('Oops! Something went wrong! Try reloading the page!'))
-
-
 }
 
 
