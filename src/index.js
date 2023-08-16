@@ -8,10 +8,10 @@ import Notiflix, { notiflix } from 'notiflix'
 
 const selectEl = document.querySelector('.breed-select')
 const catInfo = document.querySelector('.cat-info')
-const loaderEl = document.querySelector('.loader')
+const loaderEl = document.querySelector('.loaderS')
 const errorEl = document.querySelector('.error')
 errorEl.innerHTML = ''
-loaderEl.classList.add('loader')
+loaderEl.classList.add('loaderS')
 
 
 
@@ -37,13 +37,18 @@ function onSelect(e) {
     const cat = e.target.value
 
     fetchCatByBreed(e.target.value).then((data) => {
+        const events = e.target.value
 
         const createMurcup = data.filter(el => el.id === cat).map((el) => {
             return `<img src="${el.image.url}" alt="${el.name}" width="${el.image.width}" height="${el.image.heght}"/><h2>${el.name}</h2><p>${el.description}</p><p>${el.temperament}</p>
         `
         }).join('')
+
         catInfo.innerHTML = createMurcup
-        loaderEl.classList.remove('loader')
+        if (catInfo !== '') {
+            loaderEl.classList.remove('loaderS')
+        }
+
     }).catch(error => Notiflix.Report.warning('Oops! Something went wrong! Try reloading the page!'))
 }
 
