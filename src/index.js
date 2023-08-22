@@ -11,7 +11,7 @@ const catInfo = document.querySelector('.cat-info')
 const loaderEl = document.querySelector('.loaderS')
 const errorEl = document.querySelector('.error')
 errorEl.innerHTML = ''
-loaderEl.classList.add('loaderS')
+loaderEl.style.display = 'none'
 
 
 
@@ -35,21 +35,25 @@ fetchBreeds().then((data) => {
 
 function onSelect(e) {
     const cat = e.target.value
-
+    // loaderEl.classList.add('loaderS')
+    loaderEl.style.display = 'block'
     fetchCatByBreed(e.target.value).then((data) => {
         const events = e.target.value
+
 
         const createMurcup = data.filter(el => el.id === cat).map((el) => {
             return `<img src="${el.image.url}" alt="${el.name}" width="${el.image.width}" height="${el.image.heght}"/><h2>${el.name}</h2><p>${el.description}</p><p>${el.temperament}</p>
         `
         }).join('')
-
+        loaderEl.classList.remove('loaderS')
         catInfo.innerHTML = createMurcup
-        if (catInfo !== '') {
-            loaderEl.classList.remove('loaderS')
-        }
+        // if (catInfo !== '') {
+        //     loaderEl.classList.remove('loaderS')
+        // }
 
-    }).catch(error => Notiflix.Report.warning('Oops! Something went wrong! Try reloading the page!'))
+    }).catch(error => Notiflix.Report.warning('Oops! Something went wrong! Try reloading the page!')).finally(() => {
+
+    })
 }
 
 
